@@ -26,6 +26,10 @@ Route::prefix('/cozinheiro')->group(function () {
     Route::get('/{id}/delete', [CozinheiroController::class, 'delete']);
     Route::get('/{id}/restore', [CozinheiroController::class, 'restore']);
     Route::get('/{id}/forceDelete', [CozinheiroController::class, 'forceDelete']);
+
+    Route::get('/cozinheiros/search', [CozinheiroController::class, 'search'])->name('cozinheiro.search');
+
+
 });
 
 // food

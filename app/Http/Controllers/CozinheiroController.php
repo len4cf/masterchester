@@ -28,6 +28,17 @@ class CozinheiroController extends Controller
 
     }
 
+    public function search(Request $request): View
+    {
+        $search = $request->input('search');
+
+        $cozinheiros = Cozinheiro::where('nome', 'like', '%' . $search . '%')->get();
+
+        return view('pages.cozinheiro-list', [
+            'cozinheiros' => $cozinheiros
+        ]);
+    }
+
     public function delete(string $id): View
     {
         $cozinheiro = Cozinheiro::findOrFail($id);
@@ -69,6 +80,8 @@ class CozinheiroController extends Controller
         ]);
 
     }
+
+
 
     public function create(Request $request): RedirectResponse
     {
@@ -113,8 +126,9 @@ class CozinheiroController extends Controller
             'cozinheiro' => $cozinheiro
         ]);
 
-
     }
+
+
 
 
 

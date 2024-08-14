@@ -35,45 +35,33 @@
         transform: scale(1.03);
     }
 
-    /*.chef-card-actions {*/
-    /*    margin-top: auto;*/
-    /*    display: flex;*/
-    /*    justify-content: space-between;*/
-    /*    padding-top: 30px;*/
-    /*}*/
+    .search-container {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+    }
 
-    /*.chef-card-actions button {*/
-    /*    padding: 8px 12px;*/
-    /*    border: none;*/
-    /*    border-radius: 5px;*/
-    /*    color: black;*/
-    /*    cursor: pointer;*/
-    /*    transition: background-color 0.3s ease-in-out;*/
-    /*    font-weight: bold;*/
-    /*}*/
-
-    /*.botao-excluir {*/
-    /*    background-color: #B06161;*/
-    /*}*/
-
-    /*.botao-excluir:hover {*/
-    /*    background-color: #cb7f7f;*/
-    /*}*/
-
-    /*.botao-atualizar {*/
-    /*    background-color: #FCDC94;*/
-    /*}*/
-
-    /*.botao-atualizar:hover {*/
-    /*    background-color: #e7d9ad;*/
-    /*}*/
+    .search-container input {
+        width: 50%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        font-size: 16px;
+    }
 
 
 </style>
 
 <x-nav-menu/>
 
+    <form method="GET" action="{{ route('cozinheiro.search') }}" class="search-container">
+        <input type="text" name="search" id="search-input" placeholder="Pesquisar cozinheiros...">
+        <input type="button" name="filterBy" id="search-input" >
+    </form>
+
 <div class="grid-container">
+
+
     @foreach($cozinheiros as $cozinheiro)
         <div class="chef-card">
             <h1>Nome: {{ $cozinheiro->nome }}</h1>
