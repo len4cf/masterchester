@@ -31,13 +31,43 @@ class CozinheiroController extends Controller
     public function search(Request $request): View
     {
         $search = $request->input('search');
+        $filter = $request->input('filter', '');
 
-        $cozinheiros = Cozinheiro::where('nome', 'like', '%' . $search . '%')->get();
+        $query = Cozinheiro::query();
+
+        if ($search) {
+            $query->where('nome', 'like', '%' . $search . '%');
+        }
+
+        if ($filter) {
+            switch ($filter) {
+                case 'maior_idade':
+                    $query->orderBy('idade', 'desc');
+                    break;
+                case 'menor_idade':
+                    $query->orderBy('idade', 'asc');
+                    break;
+                case 'menor_tempo_carreira':
+                    $query->orderBy('tempo_carreira', 'asc');
+                    break;
+                case 'maior_tempo_carreira':
+                    $query->orderBy('tempo_carreira', 'desc');
+                    break;
+
+            }
+        }
+
+        $cozinheiros = $query->get();
 
         return view('pages.cozinheiro-list', [
             'cozinheiros' => $cozinheiros
         ]);
+
+
+//        dd($query->where('nome', 'like', '%' . 'paola' . '%')->get());
+
     }
+
 
     public function delete(string $id): View
     {

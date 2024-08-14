@@ -56,7 +56,18 @@
 
     <form method="GET" action="{{ route('cozinheiro.search') }}" class="search-container">
         <input type="text" name="search" id="search-input" placeholder="Pesquisar cozinheiros...">
-        <input type="button" name="filterBy" id="search-input" >
+
+        <select name="filter" id="filter-select">
+            <option value="">Filtrar por...</option>
+            <option value="maior_idade" {{ request('filter') == 'maior_idade' ? 'selected' : '' }}>Maior idade</option>
+            <option value="menor_idade" {{ request('filter') == 'menor_idade' ? 'selected' : '' }}>Menor idade</option>
+            <option value="menor_tempo_carreira" {{ request('filter') == 'menor_tempo_carreira' ? 'selected' : '' }}>Menor tempo de Carreira</option>
+            <option value="maior_tempo_carreira" {{ request('filter') == 'maior_tempo_carreira' ? 'selected' : '' }}>Maior tempo de Carreira</option>
+        </select>
+
+        <button type="submit">Buscar</button>
+
+
     </form>
 
 <div class="grid-container">
