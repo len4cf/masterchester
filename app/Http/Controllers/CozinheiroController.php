@@ -30,8 +30,8 @@ class CozinheiroController extends Controller
 
     public function search(Request $request): View
     {
-        $search = $request->input('search');
-        $filter = $request->input('filter', '');
+        $search = $request->input('search', '');
+        $filter = $request->input('filter', 'disponiveis');
 
         $query = Cozinheiro::query();
 
@@ -53,7 +53,9 @@ class CozinheiroController extends Controller
                 case 'maior_tempo_carreira':
                     $query->orderBy('tempo_carreira', 'desc');
                     break;
-
+                case 'cozinheiros_excluidos':
+                    $query->onlyTrashed();
+                    break;
             }
         }
 
@@ -83,17 +85,15 @@ class CozinheiroController extends Controller
 
     }
 
-    public function forceDelete(string $id): View
+    public function forceDelete(string $id): RedirectResponse
     {
-        $cozinheiro = Cozinheiro::findOrFail($id);
+        $cozinheiro = Cozinheiro::withTrashed()->findOrFail($id);
 
         $cozinheiro->forceDelete();
 
-        $cozinheiros = Cozinheiro::all();
 
-        return view('pages.cozinheiro-list', [
-            'cozinheiros' => $cozinheiros
-        ]);
+        return redirect()->to('/cozinheiro');
+
     }
 
     public function restore(string $id): View

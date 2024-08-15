@@ -60,11 +60,12 @@
     <h1>Nome: {{ $cozinheiro->nome }}</h1>
     <h3>Idade: {{ $cozinheiro->idade }}</h3>
     <h3>Tempo de carreira: {{ $cozinheiro->tempo_carreira }}</h3>
-    <h3>Menu especial do chef: {{ $cozinheiro->menus()->first()->descricao }}</h3>
+{{--    <h3>Menu especial do chef: {{ $cozinheiro->menus()->first()->descricao }}</h3>--}}
 
 
     <a href="/menu/{{ $cozinheiro->id }}">
         <button>Ir para menu</button>
     </a>
+
 
 </div>

@@ -24,22 +24,22 @@ class DatabaseSeeder extends Seeder
 //            'email' => 'test@example.com',
 //        ]);
 //
-        Cozinheiro::factory(10)->create();
+        Cozinheiro::factory(8)->create();
 
-        Cozinheiro::factory()->create([
-           'nome' => 'Erick Jacquin',
-        ]);
-
-        Cozinheiro::factory()->create([
-            'nome' => 'Helena Risso',
-            'idade' => 45
-        ]);
-
-        Cozinheiro::factory()->create([
-            'nome' => 'Paola Carosella',
-            'idade' => 50,
-            'tempo_carreira' => 20
-        ]);
+//        Cozinheiro::factory()->create([
+//           'nome' => 'Erick Jacquin',
+//        ]);
+//
+//        Cozinheiro::factory()->create([
+//            'nome' => 'Helena Risso',
+//            'idade' => 45
+//        ]);
+//
+//        Cozinheiro::factory()->create([
+//            'nome' => 'Paola Carosella',
+//            'idade' => 50,
+//            'tempo_carreira' => 20
+//        ]);
 
 //        Menu::factory(10)->create();
 
@@ -52,6 +52,36 @@ class DatabaseSeeder extends Seeder
         Menu::factory()->create([
             'cozinheiro_id' => 2,
             'descricao' => 'Menu de Carnes'
+        ]);
+
+        Menu::factory()->create([
+            'cozinheiro_id' => 3,
+            'descricao' => 'Menu de Frutas'
+        ]);
+
+        Menu::factory()->create([
+            'cozinheiro_id' => 4,
+            'descricao' => 'Menu de Sobremesas'
+        ]);
+
+        Menu::factory()->create([
+            'cozinheiro_id' => 5,
+            'descricao' => 'Menu de Comida Japonesa'
+        ]);
+
+        Menu::factory()->create([
+            'cozinheiro_id' => 6,
+            'descricao' => 'Menu de Churrasco'
+        ]);
+
+        Menu::factory()->create([
+            'cozinheiro_id' => 7,
+            'descricao' => 'Menu de Frango'
+        ]);
+
+        Menu::factory()->create([
+            'cozinheiro_id' => 8,
+            'descricao' => 'Menu de Peixe'
         ]);
 
 //        Food::factory(10)->create();

@@ -15,6 +15,8 @@ Route::get('/', function () {
 Route::prefix('/cozinheiro')->group(function () {
     Route::get('/', [CozinheiroController::class, 'show']);
 
+    Route::get('/search', [CozinheiroController::class, 'search'])->name('cozinheiro.search');
+
     Route::get('/create', [CozinheiroController::class, 'showCreateForm']);
     Route::post('/create', [CozinheiroController::class, 'create']);
 
@@ -23,11 +25,11 @@ Route::prefix('/cozinheiro')->group(function () {
 
 
     Route::get('/{id}', [CozinheiroController::class, 'find']);
-    Route::get('/{id}/delete', [CozinheiroController::class, 'delete']);
-    Route::get('/{id}/restore', [CozinheiroController::class, 'restore']);
-    Route::get('/{id}/forceDelete', [CozinheiroController::class, 'forceDelete']);
+    Route::get('/{id}/delete', [CozinheiroController::class, 'delete'])->name('cozinheiro.delete');
 
-    Route::get('/cozinheiros/search', [CozinheiroController::class, 'search'])->name('cozinheiro.search');
+    Route::patch('/{id}/restore', [CozinheiroController::class, 'restore'])->name('cozinheiro.restore');
+    Route::delete('/{id}/forceDelete', [CozinheiroController::class, 'forceDelete'])->name('cozinheiro.forceDelete');
+
 
 
 });

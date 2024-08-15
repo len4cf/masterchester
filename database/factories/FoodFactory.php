@@ -21,7 +21,7 @@ class FoodFactory extends Factory
             'peso' => $this->faker->randomFloat(),
             'kcal' => $this->faker->randomDigit(),
             'categoria' => $this->faker->word(),
-            'menu_id' => $this->faker->randomDigit(),
+            'menu_id' => $this->faker->numberBetween(0, 9),
 
         ];
     }

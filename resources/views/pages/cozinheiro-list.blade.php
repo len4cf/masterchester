@@ -5,6 +5,7 @@
         padding: 20px;
     }
 
+
     .grid-container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -22,8 +23,8 @@
     }
 
     .chef-card-link {
-        text-decoration: none; /* Remove o sublinhado do link */
-        color: inherit; /* Herda a cor do texto do card */
+        text-decoration: none;
+        color: inherit;
     }
 
     .chef-card h1, .chef-card h3 {
@@ -54,6 +55,28 @@
         font-size: 16px;
     }
 
+    .searchBtn {
+        width: 200px;
+        padding: 20px;
+        border-radius: 15px;
+        border: none;
+        color: #FEFAE0;
+        font-weight: bold;
+        font-size: 20px;
+        cursor: pointer;
+        background-color: #9CA986;
+    }
+
+    .searchBtn:hover {
+        background-color: #b3bda3;
+    }
+
+    form {
+        gap: 10px;
+    }
+
+
+
 
 </style>
 
@@ -64,36 +87,65 @@
 
         <select name="filter" id="filter-select">
             <option value="">Filtrar por...</option>
+            <option value="disponiveis" {{ request('filter') == 'disponiveis' ? 'selected' : '' }}>Disponiveis</option>
             <option value="maior_idade" {{ request('filter') == 'maior_idade' ? 'selected' : '' }}>Maior idade</option>
             <option value="menor_idade" {{ request('filter') == 'menor_idade' ? 'selected' : '' }}>Menor idade</option>
             <option value="menor_tempo_carreira" {{ request('filter') == 'menor_tempo_carreira' ? 'selected' : '' }}>Menor tempo de Carreira</option>
             <option value="maior_tempo_carreira" {{ request('filter') == 'maior_tempo_carreira' ? 'selected' : '' }}>Maior tempo de Carreira</option>
+            <option value="cozinheiros_excluidos" {{ request('filter') == 'cozinheiros_excluidos' ? 'selected' : '' }}>Cozinheiros Excluídos</option>
         </select>
 
-        <button type="submit">Buscar</button>
+        <button class="searchBtn" type="submit">Buscar</button>
 
 
     </form>
 
-<div class="grid-container">
 
 
-    @foreach($cozinheiros as $cozinheiro)
+        <div class="grid-container">
 
-        <a href="/cozinheiro/{{ $cozinheiro->id }}" class="chef-card-link">
+            @foreach($cozinheiros as $cozinheiro)
 
-        <div class="chef-card">
-            <h1>Nome: {{ $cozinheiro->nome }}</h1>
-            <h3>Idade: {{ $cozinheiro->idade }}</h3>
-            <h3>Tempo de carreira: {{ $cozinheiro->tempo_carreira }}</h3>
+                @if(!$cozinheiro->deleted_at)
 
-{{--            <div class="chef-card-actions">--}}
-{{--                <button class="botao-excluir">Excluir</button>--}}
-{{--                <button class="botao-atualizar">Atualizar</button>--}}
-{{--            </div>--}}
+                    <a href="/cozinheiro/{{ $cozinheiro->id }}" class="chef-card-link">
+
+
+                        @elseif($cozinheiro->deleted_at)
+
+                        <a class="chef-card-link">
+
+                @endif
+
+            <div class="chef-card">
+                <h1>Nome: {{ $cozinheiro->nome }}</h1>
+                <h3>Idade: {{ $cozinheiro->idade }}</h3>
+                <h3>Tempo de carreira: {{ $cozinheiro->tempo_carreira }}</h3>
+
+
+                @if($cozinheiro->deleted_at)
+                    <form action="{{ route('cozinheiro.forceDelete', $cozinheiro->id) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Excluir Permanentemente</button>
+                    </form>
+
+                    <form action="{{ route('cozinheiro.restore', $cozinheiro->id) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="btn btn-primary">Restaurar</button>
+                    </form>
+                @else
+                    <form action="{{ route('cozinheiro.delete', $cozinheiro->id) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                @endif
+            </div>
+
+            </a>
+
+            @endforeach
 
         </div>
-
-        </a>
-    @endforeach
-</div>
