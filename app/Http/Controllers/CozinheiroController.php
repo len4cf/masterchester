@@ -71,7 +71,7 @@ class CozinheiroController extends Controller
     }
 
 
-    public function delete(string $id): View
+    public function delete(string $id): RedirectResponse
     {
         $cozinheiro = Cozinheiro::findOrFail($id);
 
@@ -79,9 +79,7 @@ class CozinheiroController extends Controller
 
         $cozinheiros = Cozinheiro::all();
 
-        return view('pages.cozinheiro-list', [
-            'cozinheiros' => $cozinheiros
-        ]);
+        return redirect()->to('/cozinheiro');
 
     }
 
@@ -96,7 +94,7 @@ class CozinheiroController extends Controller
 
     }
 
-    public function restore(string $id): View
+    public function restore(string $id): RedirectResponse
     {
 
         $cozinheiro = Cozinheiro::onlyTrashed()->findOrFail($id);
@@ -105,9 +103,7 @@ class CozinheiroController extends Controller
 
         $cozinheiros = Cozinheiro::all();
 
-        return view('pages.cozinheiro-list', [
-            'cozinheiros' => $cozinheiros
-        ]);
+        return redirect()->to('/cozinheiro');
 
     }
 

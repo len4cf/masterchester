@@ -1,151 +1,72 @@
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #FEFAE0;
-        padding: 20px;
-    }
+<x-layout>
 
+    <form method="GET" action="{{ route('cozinheiro.search') }}" class="my-5 flex justify-center">
+        <input type="text" name="search" id="search-input" placeholder="Pesquisar cozinheiros..."
+               class="w-1/2 p-2 rounded-md border border-gray-300 text-lg">
 
-    .grid-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-        gap: 20px;
-    }
-
-    .chef-card {
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 15px;
-        display: flex;
-        flex-direction: column;
-        transition: transform 0.3s ease-in-out;
-    }
-
-    .chef-card-link {
-        text-decoration: none;
-        color: inherit;
-    }
-
-    .chef-card h1, .chef-card h3 {
-        margin: 0;
-        flex-grow: 1;
-    }
-
-    .chef-card h1 {
-        font-size: 30px;
-        margin-bottom: 10px;
-    }
-
-    .chef-card:hover {
-        transform: scale(1.03);
-    }
-
-    .search-container {
-        margin-bottom: 20px;
-        display: flex;
-        justify-content: center;
-    }
-
-    .search-container input {
-        width: 50%;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-        font-size: 16px;
-    }
-
-    .searchBtn {
-        width: 200px;
-        padding: 20px;
-        border-radius: 15px;
-        border: none;
-        color: #FEFAE0;
-        font-weight: bold;
-        font-size: 20px;
-        cursor: pointer;
-        background-color: #9CA986;
-    }
-
-    .searchBtn:hover {
-        background-color: #b3bda3;
-    }
-
-    form {
-        gap: 10px;
-    }
-
-
-
-
-</style>
-
-<x-nav-menu/>
-
-    <form method="GET" action="{{ route('cozinheiro.search') }}" class="search-container">
-        <input type="text" name="search" id="search-input" placeholder="Pesquisar cozinheiros...">
-
-        <select name="filter" id="filter-select">
-            <option value="">Filtrar por...</option>
-            <option value="disponiveis" {{ request('filter') == 'disponiveis' ? 'selected' : '' }}>Disponiveis</option>
-            <option value="maior_idade" {{ request('filter') == 'maior_idade' ? 'selected' : '' }}>Maior idade</option>
-            <option value="menor_idade" {{ request('filter') == 'menor_idade' ? 'selected' : '' }}>Menor idade</option>
-            <option value="menor_tempo_carreira" {{ request('filter') == 'menor_tempo_carreira' ? 'selected' : '' }}>Menor tempo de Carreira</option>
-            <option value="maior_tempo_carreira" {{ request('filter') == 'maior_tempo_carreira' ? 'selected' : '' }}>Maior tempo de Carreira</option>
-            <option value="cozinheiros_excluidos" {{ request('filter') == 'cozinheiros_excluidos' ? 'selected' : '' }}>Cozinheiros Excluídos</option>
+        <select name="filter" id="filter-select" class="ml-3 p-2 rounded-md border border-gray-300 text-lg">
+            <option value="" class="block px-4 py-2 text-sm text-gray-500">Filtrar por...</option>
+            <option value="disponiveis" {{ request('filter') == 'disponiveis' ? 'selected' : '' }} class="block px-4 py-2 text-sm text-gray-500">Disponíveis</option>
+            <option value="maior_idade" {{ request('filter') == 'maior_idade' ? 'selected' : '' }} class="block px-4 py-2 text-sm text-gray-500">Maior idade</option>
+            <option value="menor_idade" {{ request('filter') == 'menor_idade' ? 'selected' : '' }} class="block px-4 py-2 text-sm text-gray-500">Menor idade</option>
+            <option value="menor_tempo_carreira" {{ request('filter') == 'menor_tempo_carreira' ? 'selected' : '' }} class="block px-4 py-2 text-sm text-gray-500">Menor tempo de Carreira</option>
+            <option value="maior_tempo_carreira" {{ request('filter') == 'maior_tempo_carreira' ? 'selected' : '' }} class="block px-4 py-2 text-sm text-gray-500">Maior tempo de Carreira</option>
+            <option value="cozinheiros_excluidos" {{ request('filter') == 'cozinheiros_excluidos' ? 'selected' : '' }} class="block px-4 py-2 text-sm text-gray-500">Cozinheiros Excluídos</option>
         </select>
 
-        <button class="searchBtn" type="submit">Buscar</button>
-
-
+        <button class="ml-3 bg-[#9CA986] text-[#FEFAE0] font-bold text-lg p-3 rounded-md hover:bg-[#b3bda3]" type="submit">Buscar</button>
     </form>
 
+    <div class="flex justify-center my-5">
+        <a href="{{ route('cozinheiro.showCreateForm') }}">
+            <button class="ml-3 bg-[#9CA986] text-[#FEFAE0] font-bold text-lg p-3 rounded-md hover:bg-[#b3bda3]">Adicionar cozinheiro</button>
+        </a>
+    </div>
 
 
-        <div class="grid-container">
 
-            @foreach($cozinheiros as $cozinheiro)
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @foreach($cozinheiros as $cozinheiro)
+            @if(!$cozinheiro->deleted_at)
+                <a href="/cozinheiro/{{ $cozinheiro->id }}" class="block no-underline text-inherit">
+                    @else
+                        <a class="block no-underline text-inherit">
+                            @endif
+                            <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col transform transition-transform hover:scale-105">
+                                <h1 class="text-2xl font-semibold text-gray-800 mb-3">Nome: {{ $cozinheiro->nome }}</h1>
+                                <h3 class="text-lg text-gray-600 mb-2">Idade: {{ $cozinheiro->idade }}</h3>
+                                <h3 class="text-lg text-gray-600 mb-2">Tempo de carreira: {{ $cozinheiro->tempo_carreira }}</h3>
 
-                @if(!$cozinheiro->deleted_at)
+                                @if($cozinheiro->deleted_at)
+                                    <div class="flex gap-4 mt-4">
+                                        <form action="{{ route('cozinheiro.forceDelete', $cozinheiro->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="bg-red-600 text-white px-5 py-2 rounded-md">Excluir Permanentemente</button>
+                                        </form>
 
-                    <a href="/cozinheiro/{{ $cozinheiro->id }}" class="chef-card-link">
+                                        <form action="{{ route('cozinheiro.restore', $cozinheiro->id) }}" method="POST">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit" class="bg-yellow-400 text-black px-5 py-2 rounded-md">Restaurar</button>
+                                        </form>
+                                    </div>
+                                @else
+                                    <form action="{{ route('cozinheiro.delete', $cozinheiro->id) }}" method="POST" class="mt-4">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="bg-red-600 text-white px-5 py-2 rounded-md">Excluir</button>
+                                    </form>
+                                @endif
+                            </div>
+                        </a>
+                @endforeach
+    </div>
 
 
-                        @elseif($cozinheiro->deleted_at)
-
-                        <a class="chef-card-link">
-
-                @endif
-
-            <div class="chef-card">
-                <h1>Nome: {{ $cozinheiro->nome }}</h1>
-                <h3>Idade: {{ $cozinheiro->idade }}</h3>
-                <h3>Tempo de carreira: {{ $cozinheiro->tempo_carreira }}</h3>
+</x-layout>
 
 
-                @if($cozinheiro->deleted_at)
-                    <form action="{{ route('cozinheiro.forceDelete', $cozinheiro->id) }}" method="POST" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Excluir Permanentemente</button>
-                    </form>
 
-                    <form action="{{ route('cozinheiro.restore', $cozinheiro->id) }}" method="POST" class="d-inline">
-                        @csrf
-                        @method('PATCH')
-                        <button type="submit" class="btn btn-primary">Restaurar</button>
-                    </form>
-                @else
-                    <form action="{{ route('cozinheiro.delete', $cozinheiro->id) }}" method="POST" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Excluir</button>
-                    </form>
-                @endif
-            </div>
 
-            </a>
 
-            @endforeach
-
-        </div>

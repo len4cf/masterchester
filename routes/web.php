@@ -6,7 +6,11 @@ use App\Http\Controllers\MenuController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+});
+
+Route::get('/about', function () {
+    return view('about');
 });
 
 // cozinheiros
@@ -17,7 +21,7 @@ Route::prefix('/cozinheiro')->group(function () {
 
     Route::get('/search', [CozinheiroController::class, 'search'])->name('cozinheiro.search');
 
-    Route::get('/create', [CozinheiroController::class, 'showCreateForm']);
+    Route::get('/create', [CozinheiroController::class, 'showCreateForm'])->name('cozinheiro.showCreateForm');
     Route::post('/create', [CozinheiroController::class, 'create']);
 
     Route::get('/{id}/edit', [CozinheiroController::class, 'showUpdateForm']);
@@ -25,7 +29,7 @@ Route::prefix('/cozinheiro')->group(function () {
 
 
     Route::get('/{id}', [CozinheiroController::class, 'find']);
-    Route::get('/{id}/delete', [CozinheiroController::class, 'delete'])->name('cozinheiro.delete');
+    Route::delete('/{id}/delete', [CozinheiroController::class, 'delete'])->name('cozinheiro.delete');
 
     Route::patch('/{id}/restore', [CozinheiroController::class, 'restore'])->name('cozinheiro.restore');
     Route::delete('/{id}/forceDelete', [CozinheiroController::class, 'forceDelete'])->name('cozinheiro.forceDelete');
