@@ -1,10 +1,17 @@
 <style>
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #FEFAE0;
+        padding: 20px;
+    }
+
     .lista-de-menus {
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 20px;
-        background-color: #f9f9f9;
+        background-color: #9CA986;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         max-width: 600px;
@@ -13,13 +20,14 @@
 
     .lista-de-menus h1 {
         font-size: 2rem;
-        color: #555;
+        color: #FEFAE0;
         margin-bottom: 10px;
     }
 
-    .lista-de-menus p {
+    .lista-de-menus a {
         font-size: 1.2rem;
-        color: #555;
+        text-decoration: none;
+        color: #9CA986;
         background-color: #fff;
         padding: 10px;
         margin: 10px 0;
@@ -29,8 +37,8 @@
         transition: background-color 0.3s ease;
     }
 
-    .lista-de-menus p:hover {
-        background-color: #555555;
+    .lista-de-menus a:hover {
+        background-color: #cad2bc;
         color: #fff;
     }
 
@@ -42,11 +50,14 @@
     }
 </style>
 
+
+<x-nav-menu/>
+
 <div class="lista-de-menus">
     <h1>Menus disponíveis</h1>
     <hr>
 
     @foreach($menus as $menu)
-        <p>{{ $menu->descricao }}</p>
+        <a href="/menu/{{ $menu->id }}">{{ $menu->descricao }}</a>
     @endforeach
 </div>

@@ -1,18 +1,34 @@
 
 <style>
 
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #FEFAE0;
+        padding: 20px;
+    }
+
     .lista-de-menus {
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 20px;
-        background-color: #f4f4f4;
+        background-color: #9CA986;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: auto;
     }
 
     .lista-de-menus h1 {
         font-size: 2rem;
         margin-bottom: 10px;
-        color: #333;
+        color: #FEFAE0;
+    }
+
+    .lista-de-menus h2 {
+        font-size: 1rem;
+        margin-bottom: 10px;
+        color: #FEFAE0;
     }
 
     .card-comida {
@@ -56,10 +72,12 @@
 </style>
 
 
+<x-nav-menu/>
+
 <div class="lista-de-menus">
 
     <h1>{{ $menu->descricao  }}</h1>
-    <hr>
+    <h2>Chef: {{ $menu->cozinheiro->nome }}</h2>
 
 
 

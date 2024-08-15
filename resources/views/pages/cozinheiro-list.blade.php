@@ -21,6 +21,11 @@
         transition: transform 0.3s ease-in-out;
     }
 
+    .chef-card-link {
+        text-decoration: none; /* Remove o sublinhado do link */
+        color: inherit; /* Herda a cor do texto do card */
+    }
+
     .chef-card h1, .chef-card h3 {
         margin: 0;
         flex-grow: 1;
@@ -74,6 +79,9 @@
 
 
     @foreach($cozinheiros as $cozinheiro)
+
+        <a href="/cozinheiro/{{ $cozinheiro->id }}" class="chef-card-link">
+
         <div class="chef-card">
             <h1>Nome: {{ $cozinheiro->nome }}</h1>
             <h3>Idade: {{ $cozinheiro->idade }}</h3>
@@ -85,5 +93,7 @@
 {{--            </div>--}}
 
         </div>
+
+        </a>
     @endforeach
 </div>
