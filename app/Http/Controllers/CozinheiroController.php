@@ -6,6 +6,7 @@ use App\Models\Cozinheiro;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Console\View\Components\Alert;
 
 class CozinheiroController extends Controller
 {

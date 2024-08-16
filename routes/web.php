@@ -5,13 +5,6 @@ use App\Http\Controllers\FoodController;
 use App\Http\Controllers\MenuController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
-});
-
-Route::get('/about', function () {
-    return view('about');
-});
 
 // cozinheiros
 
@@ -25,7 +18,7 @@ Route::prefix('/cozinheiro')->group(function () {
     Route::post('/create', [CozinheiroController::class, 'create']);
 
     Route::get('/{id}/edit', [CozinheiroController::class, 'showUpdateForm']);
-    Route::post('/{id}/edit', [CozinheiroController::class, 'update']);
+    Route::post('/{id}/edit', [CozinheiroController::class, 'update'])->name('cozinheiro.update');
 
 
     Route::get('/{id}', [CozinheiroController::class, 'find']);

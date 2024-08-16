@@ -52,11 +52,17 @@
                                         </form>
                                     </div>
                                 @else
-                                    <form action="{{ route('cozinheiro.delete', $cozinheiro->id) }}" method="POST" class="mt-4">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="bg-red-600 text-white px-5 py-2 rounded-md">Excluir</button>
-                                    </form>
+                                    <div class="flex gap-4 mt-4">
+                                        <form action="{{ route('cozinheiro.delete', $cozinheiro->id) }}" method="POST" class="mt-4">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="bg-red-600 hover:bg-red-500 text-white px-5 py-2 rounded-md">Excluir</button>
+                                            </form>
+                                        <form action="{{ route('cozinheiro.update', $cozinheiro->id) }}" method="GET" class="mt-4">
+                                            @csrf
+                                            <button type="submit" class="bg-yellow-600 hover:bg-yellow-500 text-white px-5 py-2 rounded-md">Atualizar</button>
+                                        </form>
+                                    </div>
                                 @endif
                             </div>
                         </a>
